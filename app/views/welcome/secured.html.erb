@@ -1,6 +1,30 @@
 <h1>Secured Lending </h1>
 
 
+ ActiveMenu::create('admix-nav') do |nav|        
+
+    nav.child :dashboard do |dashboard|
+      dashboard.text = Proc.new { t('dashboard.dashboard') }
+      dashboard.href = Proc.new { admix_root_url }
+      dashboard.icon = 'icon-flag'
+    end
+
+    nav.child :general do |general|
+      general.text = Proc.new { t('general.general') }
+      general.icon = 'icon-flag'
+      general.href = 'javascript:;'
+      general.visible = Proc.new {current_user.has_role?(:admin)}
+    end
+
+    nav.child :content do |content|
+      content.text = Proc.new { t('content.content') }
+      content.href = 'javascript:;'
+      content.icon = 'icon-flag'
+    end
+
+  end
+
+
 <%= link_to 'Home', welcome_home_path %>
 <%= link_to 'About Us', welcome_about_path %>
 <%= link_to 'Contact Us', welcome_contact_path %>
@@ -8,3 +32,6 @@
 <%= link_to 'Bridging Uses', welcome_bridginguses_path %>
 <%= link_to 'Form', welcome_onlineform_path %>
 <%= link_to 'Loan Plans', welcome_loanplans_path %>
+
+
+
